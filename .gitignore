@@ -18,6 +18,8 @@ node_modules/*
 .project
 /.settings/
 /.settings/*
+.apt_generated
+.apt_generated_tests
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
