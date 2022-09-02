@@ -14,6 +14,10 @@ node_modules/*
 # 解决java产生文件
 ######################
 *.class
+.classpath
+.project
+/.settings/
+/.settings/*
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
