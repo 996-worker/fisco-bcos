@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<!--status="WARN" :用于设置log4j2自身内部日志的信息输出级别，默认是OFF -->
+<!--monitorInterval="30" :间隔秒数,自动检测配置文件的变更和重新配置本身 -->
+<configuration status="info" monitorInterval="30">
+	<Properties>
+		<!--自定义一些常量，之后使用${变量名}引用 -->
+		<Property name="displayName">report_service</Property>
+
+	</Properties>
+
+
+	<appenders>
+
+		<!--console :控制台输出的配置 -->
+		<console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+		</console>
+
+
+
+		<!-- 滚动日志文件 -->
+		<RollingFile name="rollingLogFile" fileName="logs/${displayName}.log" filePattern="logs/${displayName}_%d{yyyy-MM-dd}.log">
+			<PatternLayout
+				pattern="%style{%d{ISO8601}}{bright,white} %highlight{[LOGID:%X{logId}]}{cyan} [%style{%t}{bright,blue}] [%style{%C{5.}}{bright,yellow}:%L] %msg%n%style{%throwable}{red}" />
+			<!--按天分文件 -->
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true" interval="1" />
+			</Policies>
+			<!-- 按大小划分 -->
+			<!--<SizeBasedTriggeringPolicy size="50 MB" /> -->
+			<SizeBasedTriggeringPolicy />
+		</RollingFile>
+		<!-- 滚动异常日志文件 -->
+		<RollingFile name="rollingErrorFile" fileName="logs/${displayName}_error.log" filePattern="logs/${displayName}_error_%d{yyyy-MM-dd}.log">
+			<PatternLayout
+				pattern="%style{%d{ISO8601}}{bright,white} %highlight{[LOGID:%X{logId}]}{cyan} [%style{%t}{bright,blue}] [%style{%C{5.}}{bright,yellow}:%L] %msg%n%style{%throwable}{red}" />
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY" />
+			<!--按天分文件 -->
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true" interval="1" />
+			</Policies>
+			<!-- 按大小划分 -->
+			<!--<SizeBasedTriggeringPolicy size="50 MB" /> -->
+			<SizeBasedTriggeringPolicy />
+		</RollingFile>
+
+
+	</appenders>
+	<!--然后定义logger，只有定义了logger并引入的appender，appender才会生效 -->
+	<loggers>
+		<!--过滤掉spring和mybatis的一些无用的DEBUG信息 -->
+		<!--Logger节点用来单独指定日志的形式，name为包路径,比如要为org.springframework包下所有日志指定为INFO级别等。 -->
+		<logger name="org.springframework" level="info"></logger>
+		<logger name="org.mybatis" level="info"></logger>
+		<logger name="org.apach.http" level="info"></logger>
+		<logger name="com.post.dao" level="info"></logger>
+
+		<!-- Root节点用来指定项目的根日志，如果没有单独指定Logger，那么就会默认使用该Root日志输出 -->
+		<root level="info">
+			<appender-ref ref="Console" />
+			<appender-ref ref="rollingLogFile" />
+			<appender-ref ref="rollingErrorFile" />
+		</root>
+
+		<!--AsyncLogger :异步日志,LOG4J有三种日志模式,全异步日志,混合模式,同步日志,性能从高到底,线程越多效率越高,也可以避免日志卡死线程情况发生 -->
+		<!--additivity="false" : additivity设置事件是否在root logger输出，为了避免重复输出，可以在Logger 标签下设置additivity为”false” -->
+		<!-- <AsyncLogger name="AsyncLogger" level="trace" includeLocation="true" additivity="false"> <appender-ref ref="RollingFileError" /> </AsyncLogger> -->
+	</loggers>
+</configuration>
