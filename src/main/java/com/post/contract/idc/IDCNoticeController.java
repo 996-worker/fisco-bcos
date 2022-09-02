@@ -61,7 +61,7 @@ public class IDCNoticeController extends Contract {
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}));
     ;
 
-    protected IDCNoticeController(String contractAddress, Client client, CryptoKeyPair credential) {
+    public IDCNoticeController(String contractAddress, Client client, CryptoKeyPair credential) {
         super(getBinary(client.getCryptoSuite()), contractAddress, client, credential);
     }
 
