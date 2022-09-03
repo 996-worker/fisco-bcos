@@ -53,7 +53,7 @@ public class IDCNoticeController extends Contract {
 
     public static final String FUNC_ALLOW = "allow";
 
-    public static final Event IDCNOTICESAVED_EVENT = new Event("IDCNoticeSaved", 
+	public static final Event IDCNOTICESAVED_EVENT = new Event("IDCNoticeSaved", 
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}));
     ;
 
@@ -61,7 +61,7 @@ public class IDCNoticeController extends Contract {
             Arrays.<TypeReference<?>>asList(new TypeReference<Bytes32>(true) {}));
     ;
 
-    public IDCNoticeController(String contractAddress, Client client, CryptoKeyPair credential) {
+    protected IDCNoticeController(String contractAddress, Client client, CryptoKeyPair credential) {
         super(getBinary(client.getCryptoSuite()), contractAddress, client, credential);
     }
 
