@@ -1,61 +1,123 @@
 package com.post.contract.idc.service;
 
+import com.post.contract.BcosSdkClient;
+import com.post.contract.BcosUtils;
 import com.post.contract.idc.IDCNoticeController;
-import com.post.init.BcosClient;
+import com.post.controller.NoticeController;
 
+import com.post.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
-import org.fisco.bcos.sdk.client.Client;
-import org.fisco.bcos.sdk.crypto.keypair.CryptoKeyPair;
+import org.fisco.bcos.sdk.abi.ABICodec;
+import org.fisco.bcos.sdk.abi.ABICodecException;
 import org.fisco.bcos.sdk.eventsub.EventCallback;
 import org.fisco.bcos.sdk.model.EventLog;
 import org.fisco.bcos.sdk.transaction.model.exception.ContractException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.math.BigInteger;
 import java.util.List;
 
+/**
+ * 机房变更通知类底层服务
+ */
 @Slf4j
 @Service
 public class IdcNoticeService {
-	public static String address = null;
+    //智能合约部署地址
+    public static String address = null;
+    //智能合约 通知类sol文件调用类
+    public static IDCNoticeController noticeApi = null;
 
-	public static String getAddress() {
-		if (address == null) {
-//			address = "0x22a1212d13f764a86e5974beeed84b8714799e3f";
-			Client client = BcosClient.getClient();
-			CryptoKeyPair credential = client.getCryptoSuite().createKeyPair();
-			try {
-				address = IDCNoticeController.deploy(client, credential).getContractAddress();
-				System.out.println("通知部署成功,地址:" + address);
-			} catch (ContractException e) {
-				e.printStackTrace();
-			}
-			;
-		}
-		return address;
-	}
+    public static IDCNoticeController getNoticeApi() {
+        if (noticeApi == null) {
+            try {
+                noticeApi = IDCNoticeController.load(getAddress(), BcosSdkClient.getClient(), BcosSdkClient.cryptoKeyPair);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-//	@PostConstruct
-	public void init() {
-		Client client = BcosClient.getClient();
-		CryptoKeyPair credential = client.getCryptoSuite().createKeyPair();
+        }
+        return noticeApi;
+    }
 
-		IDCNoticeController notice = IDCNoticeController.load(getAddress(), client, credential);
-		System.out.println("=》通知新增-观察者注册");
-		notice.subscribeIDCNoticeSavedEvent(new EventCallback() {
-			@Override
-			public void onReceiveLog(int i, List<EventLog> list) {
-				IdcNoticeService.log.info("新增通知,i=[" + i + "],list[" + (list == null) + "]");
-				if (list != null) {
-					for (EventLog log : list) {
-						System.out.println("新增通知：" + log.getData());
-						IdcNoticeService.log.info("新增通知：" + log.getData());
-					}
-				}
+    //获取合约地址，如果地址为空，则进行合约发布
+    public static String getAddress() {
+        if (address == null) {
+            try {
+                //发布合约，并且保存地址
+                address = IDCNoticeController.deploy(BcosSdkClient.getClient(), BcosSdkClient.cryptoKeyPair).getContractAddress();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return address;
+    }
 
-			}
-		});
+    //发送机房变动通知
+    public static void send(String msg) {
+        BigInteger plannedStartTime = new BigInteger(System.currentTimeMillis() + "");
+        BigInteger plannedEndTime = new BigInteger(System.currentTimeMillis() + "");
+        String seriesNo = StringUtils.fillRight(StringUtils.getPrimaryKey(), 32, "0");
+        getNoticeApi().createIDCNotice(seriesNo.getBytes(), plannedStartTime, plannedEndTime, BcosUtils.utf8StringToHex(msg));
+    }
 
-	}
+    //接受机房变动通知
+    public static String get(String seriesNo) {
+        try {
+            return getNoticeApi().geIDCNotice(seriesNo.getBytes());
+        } catch (ContractException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 增加观察者
+     */
+    public void sub() {
+
+        getNoticeApi().subscribeIDCNoticeSavedEvent(new EventCallback() {
+            /**
+             * 接受机房变更通知
+             * @param i
+             * @param logs
+             */
+            @Override
+            public void onReceiveLog(int status, List<EventLog> logs) {
+                System.out.println("接收通知" + status);
+                if (logs != null) {
+                    for (EventLog log : logs) {
+                        try {
+                            List<Object> list = new ABICodec(BcosSdkClient.getClient().getCryptoSuite()).decodeEvent(IDCNoticeController.ABI,
+                                    IDCNoticeController.IDCNOTICESAVED_EVENT.getName(), log);
+
+                            for (Object str : list) {
+                                String seriesNo_ = BcosUtils
+                                        .hexToUtf8String(str.toString().replaceAll("0x", ""));
+
+                                try {
+                                    System.out.println("通知流水号:" + seriesNo_);
+                                    System.out.println("通知内容:" + BcosUtils.hexToUtf8String(getNoticeApi().geIDCNotice(seriesNo_.getBytes())));
+                                } catch (ContractException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+                            }
+
+                        } catch (ABICodecException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+            }
+        });
+    }
+
+    @PostConstruct
+    public void init() {
+        sub();
+    }
 }

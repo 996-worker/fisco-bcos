@@ -61,36 +61,6 @@ public class RequestAspect {
 			}
 			log.info("==========>>>>request,访问者:" + remoteAddr + ",接口地址:" + uri + ",传入参数:" + params);
 
-//			SysRequestMapping requestMapping = getRequestMapping().get(uri);
-//			try {
-//
-//				if (requestMapping != null) {
-//					log.info("操作日志记录");
-//					SysRequestHistory history = new SysRequestHistory();
-//					history.setThreadId(Thread.currentThread().getName());
-//					history.setRequestCname(getRequestMapping().get(uri).getCname());
-//					history.setRequestDate(new Date());
-//					history.setRequestMapping(uri);
-//					history.setUserIp(remoteAddr);
-//					if (params.indexOf("token") != -1) {
-//
-//						for (String str : params.split("&")) {
-//							if (str.startsWith("token=")) {
-//								String token = str.replace("token=", "");
-//								history.setToken(token);
-//								history.setUserName(URLDecoder.decode(TokenUtils.getUserNameByToken(token)));
-//								history.setUserRoleName(TokenUtils.getRoleCodeByToken(token));
-//
-//							}
-//						}
-//					}
-//					sysRequestHistoryMapper.insert(history);
-//
-//				}
-//			} catch (Exception e) {
-//				log.error("***操作日志插入失败doBefore()***", e);
-//				e.printStackTrace();
-//			}
 			// 讲统计信息放入缓存
 			Map optLog = new HashMap();
 			optLog.put("request_beginTime", beginTime);
