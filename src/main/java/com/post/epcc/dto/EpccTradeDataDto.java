@@ -7,8 +7,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(value = JsonInclude.Include.NON_NULL)
+
 public class EpccTradeDataDto<T> {
     //统计数量
     private int cntSumNo;

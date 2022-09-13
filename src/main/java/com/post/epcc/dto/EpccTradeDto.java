@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(value = JsonInclude.Include.NON_NULL)
+
 public class EpccTradeDto<T> {
     //报文内容
     private EpccTradeDataDto<T> data;

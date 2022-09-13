@@ -5,7 +5,9 @@ import com.post.contract.utils.BcosUtils;
 import com.post.contract.idc.sol.IDCNoticeController;
 
 import com.post.dao.NuccIdcNoticeMapper;
+import com.post.dao.NuccIdcOpNoticeMapper;
 import com.post.entity.NuccIdcNotice;
+import com.post.entity.NuccIdcOpNotice;
 import com.post.epcc.dto.EpccTradeDataDto;
 import com.post.epcc.dto.EpccTradeDto;
 import com.post.epcc.dto.EpccTradeOpCntDto;
@@ -70,6 +72,9 @@ public class IdcNoticeService {
     @Autowired
     NuccIdcNoticeMapper nuccIdcNoticeMapper;
 
+    @Autowired
+    NuccIdcOpNoticeMapper nuccIdcOpNoticeMapper;
+
     //发送机房变动通知
     public static void send(String msg) {
         BigInteger plannedStartTime = new BigInteger(System.currentTimeMillis() + "");
@@ -115,8 +120,9 @@ public class IdcNoticeService {
         cntDto.setOpList(opList);
         cntDtoList.add(cntDto);
         data.setCntList(cntDtoList);
+        tradeDto.setData(data);
 
-        String json = JsonUtils.toJson(data);
+        String json = JsonUtils.toJson(tradeDto);
         System.out.println(json);
         System.out.println(BcosUtils.utf8StringToHex(json));
         getNoticeApi().createIDCNotice(seriesNo.getBytes(), plannedStartTime, plannedEndTime, BcosUtils.utf8StringToHex(json));
@@ -171,6 +177,40 @@ public class IdcNoticeService {
                                     notice.setSeriesNo(seriesNo_);
                                     notice.setNoticeStatus("00");
                                     nuccIdcNoticeMapper.insert(notice);
+
+                                    EpccTradeDto<EpccTradeOpCntDto> dto = (EpccTradeDto<EpccTradeOpCntDto>) JsonUtils.toObject(json, EpccTradeDto.class);
+                                    System.out.println("转换实体:" + JsonUtils.toJson(dto));
+                                    System.out.println("通知条数:" + dto.getData().getCntList().size());
+                                    List<EpccTradeOpCntDto> cntList = dto.getData().getCntList();
+
+                                    for (int i = 0; i < cntList.size(); i++) {
+                                        try {
+
+                                            EpccTradeOpCntDto cntDto = JsonUtils.toObject(JsonUtils.toJson(cntList.get(i)), EpccTradeOpCntDto.class);
+                                            NuccIdcOpNotice opNotice = new NuccIdcOpNotice();
+                                            opNotice.setRecId(StringUtils.getPrimaryKey());
+                                            opNotice.setCntNo(cntDto.getCtnNo());
+                                            opNotice.setInfoNo(cntDto.getInfoNo());
+                                            opNotice.setInfoType(cntDto.getInfoType());
+                                            opNotice.setInstId(cntDto.getInstId());
+                                            opNotice.setInstName(cntDto.getInstName());
+                                            opNotice.setContent(cntDto.getContent());
+                                            opNotice.setDesc(cntDto.getDesc());
+                                            opNotice.setContacts(cntDto.getContacts());
+                                            opNotice.setIdclist(cntDto.getIdcList());
+                                            opNotice.setBizChan(cntDto.getCtnNo());
+                                            opNotice.setBizTypeList(StringUtils.join(cntDto.getBizTypeList()));
+                                            opNotice.setAccType(StringUtils.join(cntDto.getAccType()));
+                                            opNotice.setOpList(JsonUtils.toJson(cntDto.getOpList()));
+
+                                            opNotice.setStarttime(cntDto.getStartTime());
+                                            opNotice.setEndtime(cntDto.getEndTime());
+
+                                            nuccIdcOpNoticeMapper.insert(opNotice);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
                                 } catch (ContractException e) {
                                     // TODO Auto-generated catch block
                                     e.printStackTrace();
