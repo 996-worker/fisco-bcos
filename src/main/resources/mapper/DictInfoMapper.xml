@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.post.dao.DictInfoMapper">
+  <resultMap id="BaseResultMap" type="com.post.entity.DictInfo">
+    <constructor>
+      <idArg column="rec_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="group_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="group_key" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dict_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dict_val" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="order_key" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="dict_desc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dict_params" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="dict_up_val" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="current_status" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    rec_id, group_name, group_key, dict_name, dict_val, order_key, dict_desc, dict_params, 
+    dict_up_val, current_status
+  </sql>
+  <select id="selectByExample" parameterType="com.post.entity.DictInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sys_dict_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_dict_info
+    where rec_id = #{recId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_dict_info
+  </delete>
+  <insert id="insert" parameterType="com.post.entity.DictInfo">
+    insert into sys_dict_info (rec_id, group_name, group_key, 
+      dict_name, dict_val, order_key, 
+      dict_desc, dict_params, dict_up_val, 
+      current_status)
+    values (#{recId,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR}, #{groupKey,jdbcType=VARCHAR}, 
+      #{dictName,jdbcType=VARCHAR}, #{dictVal,jdbcType=VARCHAR}, #{orderKey,jdbcType=INTEGER}, 
+      #{dictDesc,jdbcType=VARCHAR}, #{dictParams,jdbcType=VARCHAR}, #{dictUpVal,jdbcType=VARCHAR}, 
+      #{currentStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.post.entity.DictInfo">
+    insert into sys_dict_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recId != null">
+        rec_id,
+      </if>
+      <if test="groupName != null">
+        group_name,
+      </if>
+      <if test="groupKey != null">
+        group_key,
+      </if>
+      <if test="dictName != null">
+        dict_name,
+      </if>
+      <if test="dictVal != null">
+        dict_val,
+      </if>
+      <if test="orderKey != null">
+        order_key,
+      </if>
+      <if test="dictDesc != null">
+        dict_desc,
+      </if>
+      <if test="dictParams != null">
+        dict_params,
+      </if>
+      <if test="dictUpVal != null">
+        dict_up_val,
+      </if>
+      <if test="currentStatus != null">
+        current_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recId != null">
+        #{recId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupKey != null">
+        #{groupKey,jdbcType=VARCHAR},
+      </if>
+      <if test="dictName != null">
+        #{dictName,jdbcType=VARCHAR},
+      </if>
+      <if test="dictVal != null">
+        #{dictVal,jdbcType=VARCHAR},
+      </if>
+      <if test="orderKey != null">
+        #{orderKey,jdbcType=INTEGER},
+      </if>
+      <if test="dictDesc != null">
+        #{dictDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="dictParams != null">
+        #{dictParams,jdbcType=VARCHAR},
+      </if>
+      <if test="dictUpVal != null">
+        #{dictUpVal,jdbcType=VARCHAR},
+      </if>
+      <if test="currentStatus != null">
+        #{currentStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.post.entity.DictInfoExample" resultType="java.lang.Long">
+    select count(*) from sys_dict_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_dict_info
+    <set>
+      <if test="record.recId != null">
+        rec_id = #{record.recId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupName != null">
+        group_name = #{record.groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupKey != null">
+        group_key = #{record.groupKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dictName != null">
+        dict_name = #{record.dictName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dictVal != null">
+        dict_val = #{record.dictVal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderKey != null">
+        order_key = #{record.orderKey,jdbcType=INTEGER},
+      </if>
+      <if test="record.dictDesc != null">
+        dict_desc = #{record.dictDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dictParams != null">
+        dict_params = #{record.dictParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dictUpVal != null">
+        dict_up_val = #{record.dictUpVal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentStatus != null">
+        current_status = #{record.currentStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_dict_info
+    set rec_id = #{record.recId,jdbcType=VARCHAR},
+      group_name = #{record.groupName,jdbcType=VARCHAR},
+      group_key = #{record.groupKey,jdbcType=VARCHAR},
+      dict_name = #{record.dictName,jdbcType=VARCHAR},
+      dict_val = #{record.dictVal,jdbcType=VARCHAR},
+      order_key = #{record.orderKey,jdbcType=INTEGER},
+      dict_desc = #{record.dictDesc,jdbcType=VARCHAR},
+      dict_params = #{record.dictParams,jdbcType=VARCHAR},
+      dict_up_val = #{record.dictUpVal,jdbcType=VARCHAR},
+      current_status = #{record.currentStatus,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.post.entity.DictInfo">
+    update sys_dict_info
+    <set>
+      <if test="groupName != null">
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupKey != null">
+        group_key = #{groupKey,jdbcType=VARCHAR},
+      </if>
+      <if test="dictName != null">
+        dict_name = #{dictName,jdbcType=VARCHAR},
+      </if>
+      <if test="dictVal != null">
+        dict_val = #{dictVal,jdbcType=VARCHAR},
+      </if>
+      <if test="orderKey != null">
+        order_key = #{orderKey,jdbcType=INTEGER},
+      </if>
+      <if test="dictDesc != null">
+        dict_desc = #{dictDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="dictParams != null">
+        dict_params = #{dictParams,jdbcType=VARCHAR},
+      </if>
+      <if test="dictUpVal != null">
+        dict_up_val = #{dictUpVal,jdbcType=VARCHAR},
+      </if>
+      <if test="currentStatus != null">
+        current_status = #{currentStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rec_id = #{recId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.post.entity.DictInfo">
+    update sys_dict_info
+    set group_name = #{groupName,jdbcType=VARCHAR},
+      group_key = #{groupKey,jdbcType=VARCHAR},
+      dict_name = #{dictName,jdbcType=VARCHAR},
+      dict_val = #{dictVal,jdbcType=VARCHAR},
+      order_key = #{orderKey,jdbcType=INTEGER},
+      dict_desc = #{dictDesc,jdbcType=VARCHAR},
+      dict_params = #{dictParams,jdbcType=VARCHAR},
+      dict_up_val = #{dictUpVal,jdbcType=VARCHAR},
+      current_status = #{currentStatus,jdbcType=VARCHAR}
+    where rec_id = #{recId,jdbcType=VARCHAR}
+  </update>
+</mapper>
