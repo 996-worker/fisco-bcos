@@ -4,6 +4,8 @@ import com.post.contract.utils.BcosSdkClient;
 import com.post.contract.utils.BcosUtils;
 import com.post.contract.idc.sol.IDCNoticeController;
 
+import com.post.dao.NuccIdcNoticeMapper;
+import com.post.entity.NuccIdcNotice;
 import com.post.epcc.dto.EpccTradeDataDto;
 import com.post.epcc.dto.EpccTradeDto;
 import com.post.epcc.dto.EpccTradeOpCntDto;
@@ -18,6 +20,7 @@ import org.fisco.bcos.sdk.abi.ABICodecException;
 import org.fisco.bcos.sdk.eventsub.EventCallback;
 import org.fisco.bcos.sdk.model.EventLog;
 import org.fisco.bcos.sdk.transaction.model.exception.ContractException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -37,6 +40,7 @@ public class IdcNoticeService {
     public static String address = null;
     //智能合约 通知类sol文件调用类
     public static IDCNoticeController noticeApi = null;
+
 
     public static IDCNoticeController getNoticeApi() {
         if (noticeApi == null) {
@@ -62,6 +66,9 @@ public class IdcNoticeService {
         }
         return address;
     }
+
+    @Autowired
+    NuccIdcNoticeMapper nuccIdcNoticeMapper;
 
     //发送机房变动通知
     public static void send(String msg) {
@@ -112,7 +119,7 @@ public class IdcNoticeService {
         String json = JsonUtils.toJson(data);
         System.out.println(json);
         System.out.println(BcosUtils.utf8StringToHex(json));
-//        getNoticeApi().createIDCNotice(seriesNo.getBytes(), plannedStartTime, plannedEndTime, BcosUtils.utf8StringToHex(json));
+        getNoticeApi().createIDCNotice(seriesNo.getBytes(), plannedStartTime, plannedEndTime, BcosUtils.utf8StringToHex(json));
     }
 
     public static void main(String[] args) {
@@ -155,7 +162,15 @@ public class IdcNoticeService {
 
                                 try {
                                     System.out.println("通知流水号:" + seriesNo_);
-                                    System.out.println("通知内容:" + BcosUtils.hexToUtf8String(getNoticeApi().geIDCNotice(seriesNo_.getBytes())));
+                                    String json = BcosUtils.hexToUtf8String(getNoticeApi().geIDCNotice(seriesNo_.getBytes()));
+                                    System.out.println("通知内容:" + json);
+
+                                    NuccIdcNotice notice = new NuccIdcNotice();
+                                    notice.setContentJson(json);
+                                    notice.setCreateDate(new Date());
+                                    notice.setSeriesNo(seriesNo_);
+                                    notice.setNoticeStatus("00");
+                                    nuccIdcNoticeMapper.insert(notice);
                                 } catch (ContractException e) {
                                     // TODO Auto-generated catch block
                                     e.printStackTrace();

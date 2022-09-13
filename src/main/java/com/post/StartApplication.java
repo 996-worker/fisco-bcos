@@ -2,6 +2,7 @@
 package com.post;
 
 import com.post.config.SystemConfig;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @ServletComponentScan("com.post.aspect")
+@MapperScan("com.post.dao")
 @SpringBootApplication
 public class StartApplication implements CommandLineRunner, DisposableBean {
 	@Autowired
