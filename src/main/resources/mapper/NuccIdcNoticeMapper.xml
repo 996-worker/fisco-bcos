@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.post.dao.NuccIdcNoticeMapper">
+  <resultMap id="BaseResultMap" type="com.post.entity.NuccIdcNotice">
+    <constructor>
+      <idArg column="series_no" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="content_json" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="notice_status" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    series_no, content_json, create_date, notice_status
+  </sql>
+  <select id="selectByExample" parameterType="com.post.entity.NuccIdcNoticeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from nucc_idc_notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nucc_idc_notice
+    where series_no = #{seriesNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from nucc_idc_notice
+    where series_no = #{seriesNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.post.entity.NuccIdcNotice">
+    insert into nucc_idc_notice (series_no, content_json, create_date, 
+      notice_status)
+    values (#{seriesNo,jdbcType=VARCHAR}, #{contentJson,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{noticeStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.post.entity.NuccIdcNotice">
+    insert into nucc_idc_notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seriesNo != null">
+        series_no,
+      </if>
+      <if test="contentJson != null">
+        content_json,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="noticeStatus != null">
+        notice_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seriesNo != null">
+        #{seriesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contentJson != null">
+        #{contentJson,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeStatus != null">
+        #{noticeStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.post.entity.NuccIdcNoticeExample" resultType="java.lang.Long">
+    select count(*) from nucc_idc_notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update nucc_idc_notice
+    <set>
+      <if test="record.seriesNo != null">
+        series_no = #{record.seriesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentJson != null">
+        content_json = #{record.contentJson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.noticeStatus != null">
+        notice_status = #{record.noticeStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update nucc_idc_notice
+    set series_no = #{record.seriesNo,jdbcType=VARCHAR},
+      content_json = #{record.contentJson,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      notice_status = #{record.noticeStatus,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.post.entity.NuccIdcNotice">
+    update nucc_idc_notice
+    <set>
+      <if test="contentJson != null">
+        content_json = #{contentJson,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeStatus != null">
+        notice_status = #{noticeStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where series_no = #{seriesNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.post.entity.NuccIdcNotice">
+    update nucc_idc_notice
+    set content_json = #{contentJson,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      notice_status = #{noticeStatus,jdbcType=VARCHAR}
+    where series_no = #{seriesNo,jdbcType=VARCHAR}
+  </update>
+</mapper>
