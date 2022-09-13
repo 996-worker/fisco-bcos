@@ -15,9 +15,9 @@ public class NuccIdcOpNotice {
 
     private String instName;
 
-    private String content;
+    private String noticeContent;
 
-    private String desc;
+    private String noticeDesc;
 
     private String contacts;
 
@@ -33,7 +33,7 @@ public class NuccIdcOpNotice {
 
     private String endTime;
 
-    public NuccIdcOpNotice(String recId, String cntNo, String infoNo, String infoType, String instId, String accType, String instName, String content, String desc, String contacts, String idcList, String bizChan, String bizTypeList, String opList, String startTime, String endTime) {
+    public NuccIdcOpNotice(String recId, String cntNo, String infoNo, String infoType, String instId, String accType, String instName, String noticeContent, String noticeDesc, String contacts, String idcList, String bizChan, String bizTypeList, String opList, String startTime, String endTime) {
         this.recId = recId;
         this.cntNo = cntNo;
         this.infoNo = infoNo;
@@ -41,8 +41,8 @@ public class NuccIdcOpNotice {
         this.instId = instId;
         this.accType = accType;
         this.instName = instName;
-        this.content = content;
-        this.desc = desc;
+        this.noticeContent = noticeContent;
+        this.noticeDesc = noticeDesc;
         this.contacts = contacts;
         this.idcList = idcList;
         this.bizChan = bizChan;
@@ -112,20 +112,20 @@ public class NuccIdcOpNotice {
         this.instName = instName == null ? null : instName.trim();
     }
 
-    public String getContent() {
-        return content;
+    public String getNoticeContent() {
+        return noticeContent;
     }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+    public void setNoticeContent(String noticeContent) {
+        this.noticeContent = noticeContent == null ? null : noticeContent.trim();
     }
 
-    public String getDesc() {
-        return desc;
+    public String getNoticeDesc() {
+        return noticeDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+    public void setNoticeDesc(String noticeDesc) {
+        this.noticeDesc = noticeDesc == null ? null : noticeDesc.trim();
     }
 
     public String getContacts() {
