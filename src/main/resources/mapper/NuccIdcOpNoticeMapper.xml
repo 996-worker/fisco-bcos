@@ -10,8 +10,8 @@
       <arg column="inst_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="acc_type" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="inst_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="desc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="notice_content" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="notice_desc" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="contacts" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="idc_list" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="biz_chan" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -80,8 +80,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    rec_id, cnt_no, info_no, info_type, inst_id, acc_type, inst_name, content, desc, 
-    contacts, idc_list, biz_chan, biz_type_list, op_list, start_time, end_time
+    rec_id, cnt_no, info_no, info_type, inst_id, acc_type, inst_name, notice_content, 
+    notice_desc, contacts, idc_list, biz_chan, biz_type_list, op_list, start_time, end_time
   </sql>
   <select id="selectByExample" parameterType="com.post.entity.NuccIdcOpNoticeExample" resultMap="BaseResultMap">
     select
@@ -111,13 +111,13 @@
   <insert id="insert" parameterType="com.post.entity.NuccIdcOpNotice">
     insert into nucc_idc_op_notice (rec_id, cnt_no, info_no, 
       info_type, inst_id, acc_type, 
-      inst_name, content, desc, 
+      inst_name, notice_content, notice_desc, 
       contacts, idc_list, biz_chan, 
       biz_type_list, op_list, start_time, 
       end_time)
     values (#{recId,jdbcType=VARCHAR}, #{cntNo,jdbcType=VARCHAR}, #{infoNo,jdbcType=VARCHAR}, 
       #{infoType,jdbcType=VARCHAR}, #{instId,jdbcType=VARCHAR}, #{accType,jdbcType=VARCHAR}, 
-      #{instName,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
+      #{instName,jdbcType=VARCHAR}, #{noticeContent,jdbcType=VARCHAR}, #{noticeDesc,jdbcType=VARCHAR}, 
       #{contacts,jdbcType=VARCHAR}, #{idcList,jdbcType=VARCHAR}, #{bizChan,jdbcType=VARCHAR}, 
       #{bizTypeList,jdbcType=VARCHAR}, #{opList,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, 
       #{endTime,jdbcType=VARCHAR})
@@ -146,11 +146,11 @@
       <if test="instName != null">
         inst_name,
       </if>
-      <if test="content != null">
-        content,
+      <if test="noticeContent != null">
+        notice_content,
       </if>
-      <if test="desc != null">
-        desc,
+      <if test="noticeDesc != null">
+        notice_desc,
       </if>
       <if test="contacts != null">
         contacts,
@@ -196,11 +196,11 @@
       <if test="instName != null">
         #{instName,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
+      <if test="noticeContent != null">
+        #{noticeContent,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null">
-        #{desc,jdbcType=VARCHAR},
+      <if test="noticeDesc != null">
+        #{noticeDesc,jdbcType=VARCHAR},
       </if>
       <if test="contacts != null">
         #{contacts,jdbcType=VARCHAR},
@@ -255,11 +255,11 @@
       <if test="record.instName != null">
         inst_name = #{record.instName,jdbcType=VARCHAR},
       </if>
-      <if test="record.content != null">
-        content = #{record.content,jdbcType=VARCHAR},
+      <if test="record.noticeContent != null">
+        notice_content = #{record.noticeContent,jdbcType=VARCHAR},
       </if>
-      <if test="record.desc != null">
-        desc = #{record.desc,jdbcType=VARCHAR},
+      <if test="record.noticeDesc != null">
+        notice_desc = #{record.noticeDesc,jdbcType=VARCHAR},
       </if>
       <if test="record.contacts != null">
         contacts = #{record.contacts,jdbcType=VARCHAR},
@@ -296,8 +296,8 @@
       inst_id = #{record.instId,jdbcType=VARCHAR},
       acc_type = #{record.accType,jdbcType=VARCHAR},
       inst_name = #{record.instName,jdbcType=VARCHAR},
-      content = #{record.content,jdbcType=VARCHAR},
-      desc = #{record.desc,jdbcType=VARCHAR},
+      notice_content = #{record.noticeContent,jdbcType=VARCHAR},
+      notice_desc = #{record.noticeDesc,jdbcType=VARCHAR},
       contacts = #{record.contacts,jdbcType=VARCHAR},
       idc_list = #{record.idcList,jdbcType=VARCHAR},
       biz_chan = #{record.bizChan,jdbcType=VARCHAR},
@@ -330,11 +330,11 @@
       <if test="instName != null">
         inst_name = #{instName,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
+      <if test="noticeContent != null">
+        notice_content = #{noticeContent,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null">
-        desc = #{desc,jdbcType=VARCHAR},
+      <if test="noticeDesc != null">
+        notice_desc = #{noticeDesc,jdbcType=VARCHAR},
       </if>
       <if test="contacts != null">
         contacts = #{contacts,jdbcType=VARCHAR},
@@ -368,8 +368,8 @@
       inst_id = #{instId,jdbcType=VARCHAR},
       acc_type = #{accType,jdbcType=VARCHAR},
       inst_name = #{instName,jdbcType=VARCHAR},
-      content = #{content,jdbcType=VARCHAR},
-      desc = #{desc,jdbcType=VARCHAR},
+      notice_content = #{noticeContent,jdbcType=VARCHAR},
+      notice_desc = #{noticeDesc,jdbcType=VARCHAR},
       contacts = #{contacts,jdbcType=VARCHAR},
       idc_list = #{idcList,jdbcType=VARCHAR},
       biz_chan = #{bizChan,jdbcType=VARCHAR},
