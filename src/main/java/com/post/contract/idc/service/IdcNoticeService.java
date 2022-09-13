@@ -1,10 +1,15 @@
 package com.post.contract.idc.service;
 
-import com.post.contract.BcosSdkClient;
-import com.post.contract.BcosUtils;
-import com.post.contract.idc.IDCNoticeController;
-import com.post.controller.NoticeController;
+import com.post.contract.utils.BcosSdkClient;
+import com.post.contract.utils.BcosUtils;
+import com.post.contract.idc.sol.IDCNoticeController;
 
+import com.post.epcc.dto.EpccTradeDataDto;
+import com.post.epcc.dto.EpccTradeDto;
+import com.post.epcc.dto.EpccTradeOpCntDto;
+import com.post.epcc.dto.component.EpccTradeOpDto;
+import com.post.utils.DateUtils;
+import com.post.utils.JsonUtils;
 import com.post.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,6 +22,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -60,7 +68,55 @@ public class IdcNoticeService {
         BigInteger plannedStartTime = new BigInteger(System.currentTimeMillis() + "");
         BigInteger plannedEndTime = new BigInteger(System.currentTimeMillis() + "");
         String seriesNo = StringUtils.fillRight(StringUtils.getPrimaryKey(), 32, "0");
-        getNoticeApi().createIDCNotice(seriesNo.getBytes(), plannedStartTime, plannedEndTime, BcosUtils.utf8StringToHex(msg));
+
+        EpccTradeDto tradeDto = new EpccTradeDto();
+        tradeDto.setMsgId(seriesNo);
+        tradeDto.setDrctn("02");
+        tradeDto.setMsgTp("uops.020.000.01");
+        tradeDto.setReIssrId("95580");
+        tradeDto.setReqSysId("Pay");
+
+        EpccTradeDataDto data = new EpccTradeDataDto();
+        data.setCntSumNo(1);
+        data.setDrctn("02");
+        data.setMsgTp("uops.020.000.01");
+
+        List<EpccTradeOpCntDto> cntDtoList = new ArrayList<>();
+        EpccTradeOpCntDto cntDto = new EpccTradeOpCntDto();
+        cntDto.setAccType(new String[]{"00"});
+        cntDto.setBizChan("01");
+        cntDto.setBizTypeList(new String[]{"0000"});
+        cntDto.setCtnNo("1");
+        cntDto.setContacts("010-68148980");
+        cntDto.setContent(msg);
+        cntDto.setDesc("所有接入机房的成员结构");
+        try {
+            cntDto.setEndTime(DateUtils.getDateStr(new Date(), "YYYYMMDDHHmmss"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        cntDto.setIdcList("BJ10");
+        cntDto.setInfoNo(seriesNo);
+        cntDto.setInfoType("01");
+        cntDto.setInstId("G4000311000018");
+        cntDto.setInstName("网联清算有限公司");
+
+        List<EpccTradeOpDto> opList = new ArrayList<>();
+        EpccTradeOpDto op = new EpccTradeOpDto();
+        op.setPayOp("03");
+        opList.add(op);
+        cntDto.setOpList(opList);
+        cntDtoList.add(cntDto);
+        data.setCntList(cntDtoList);
+
+        String json = JsonUtils.toJson(data);
+        System.out.println(json);
+        System.out.println(BcosUtils.utf8StringToHex(json));
+//        getNoticeApi().createIDCNotice(seriesNo.getBytes(), plannedStartTime, plannedEndTime, BcosUtils.utf8StringToHex(json));
+    }
+
+    public static void main(String[] args) {
+        IdcNoticeService.send("BJ10机房重启");
     }
 
     //接受机房变动通知

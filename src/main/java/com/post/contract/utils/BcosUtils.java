@@ -1,4 +1,4 @@
-package com.post.contract;
+package com.post.contract.utils;
 
 import com.post.utils.StringUtils;
 import org.fisco.bcos.sdk.abi.datatypes.generated.Bytes32;

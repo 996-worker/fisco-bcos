@@ -1,4 +1,4 @@
-package com.post.contract;
+package com.post.contract.utils;
 
 import com.post.utils.CtxUtils;
 import lombok.extern.slf4j.Slf4j;

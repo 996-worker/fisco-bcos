@@ -1,4 +1,4 @@
-package com.post.contract.idc;
+package com.post.contract.idc.sol;
 
 import java.util.ArrayList;
 import java.util.Arrays;
