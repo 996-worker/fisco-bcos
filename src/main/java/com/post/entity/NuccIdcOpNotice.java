@@ -21,7 +21,7 @@ public class NuccIdcOpNotice {
 
     private String contacts;
 
-    private String idclist;
+    private String idcList;
 
     private String bizChan;
 
@@ -29,11 +29,11 @@ public class NuccIdcOpNotice {
 
     private String opList;
 
-    private String starttime;
+    private String startTime;
 
-    private String endtime;
+    private String endTime;
 
-    public NuccIdcOpNotice(String recId, String cntNo, String infoNo, String infoType, String instId, String accType, String instName, String content, String desc, String contacts, String idclist, String bizChan, String bizTypeList, String opList, String starttime, String endtime) {
+    public NuccIdcOpNotice(String recId, String cntNo, String infoNo, String infoType, String instId, String accType, String instName, String content, String desc, String contacts, String idcList, String bizChan, String bizTypeList, String opList, String startTime, String endTime) {
         this.recId = recId;
         this.cntNo = cntNo;
         this.infoNo = infoNo;
@@ -44,12 +44,12 @@ public class NuccIdcOpNotice {
         this.content = content;
         this.desc = desc;
         this.contacts = contacts;
-        this.idclist = idclist;
+        this.idcList = idcList;
         this.bizChan = bizChan;
         this.bizTypeList = bizTypeList;
         this.opList = opList;
-        this.starttime = starttime;
-        this.endtime = endtime;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public NuccIdcOpNotice() {
@@ -136,12 +136,12 @@ public class NuccIdcOpNotice {
         this.contacts = contacts == null ? null : contacts.trim();
     }
 
-    public String getIdclist() {
-        return idclist;
+    public String getIdcList() {
+        return idcList;
     }
 
-    public void setIdclist(String idclist) {
-        this.idclist = idclist == null ? null : idclist.trim();
+    public void setIdcList(String idcList) {
+        this.idcList = idcList == null ? null : idcList.trim();
     }
 
     public String getBizChan() {
@@ -168,19 +168,19 @@ public class NuccIdcOpNotice {
         this.opList = opList == null ? null : opList.trim();
     }
 
-    public String getStarttime() {
-        return starttime;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setStarttime(String starttime) {
-        this.starttime = starttime == null ? null : starttime.trim();
+    public void setStartTime(String startTime) {
+        this.startTime = startTime == null ? null : startTime.trim();
     }
 
-    public String getEndtime() {
-        return endtime;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public void setEndtime(String endtime) {
-        this.endtime = endtime == null ? null : endtime.trim();
+    public void setEndTime(String endTime) {
+        this.endTime = endTime == null ? null : endTime.trim();
     }
 }

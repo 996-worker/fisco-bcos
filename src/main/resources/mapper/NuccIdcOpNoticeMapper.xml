@@ -13,12 +13,12 @@
       <arg column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="desc" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="contacts" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="idcList" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="idc_list" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="biz_chan" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="biz_type_list" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="op_list" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="startTime" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="endTime" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="start_time" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="end_time" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -81,7 +81,7 @@
   </sql>
   <sql id="Base_Column_List">
     rec_id, cnt_no, info_no, info_type, inst_id, acc_type, inst_name, content, desc, 
-    contacts, idcList, biz_chan, biz_type_list, op_list, startTime, endTime
+    contacts, idc_list, biz_chan, biz_type_list, op_list, start_time, end_time
   </sql>
   <select id="selectByExample" parameterType="com.post.entity.NuccIdcOpNoticeExample" resultMap="BaseResultMap">
     select
@@ -112,15 +112,15 @@
     insert into nucc_idc_op_notice (rec_id, cnt_no, info_no, 
       info_type, inst_id, acc_type, 
       inst_name, content, desc, 
-      contacts, idcList, biz_chan, 
-      biz_type_list, op_list, startTime, 
-      endTime)
+      contacts, idc_list, biz_chan, 
+      biz_type_list, op_list, start_time, 
+      end_time)
     values (#{recId,jdbcType=VARCHAR}, #{cntNo,jdbcType=VARCHAR}, #{infoNo,jdbcType=VARCHAR}, 
       #{infoType,jdbcType=VARCHAR}, #{instId,jdbcType=VARCHAR}, #{accType,jdbcType=VARCHAR}, 
       #{instName,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
-      #{contacts,jdbcType=VARCHAR}, #{idclist,jdbcType=VARCHAR}, #{bizChan,jdbcType=VARCHAR}, 
-      #{bizTypeList,jdbcType=VARCHAR}, #{opList,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, 
-      #{endtime,jdbcType=VARCHAR})
+      #{contacts,jdbcType=VARCHAR}, #{idcList,jdbcType=VARCHAR}, #{bizChan,jdbcType=VARCHAR}, 
+      #{bizTypeList,jdbcType=VARCHAR}, #{opList,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.post.entity.NuccIdcOpNotice">
     insert into nucc_idc_op_notice
@@ -155,8 +155,8 @@
       <if test="contacts != null">
         contacts,
       </if>
-      <if test="idclist != null">
-        idcList,
+      <if test="idcList != null">
+        idc_list,
       </if>
       <if test="bizChan != null">
         biz_chan,
@@ -167,11 +167,11 @@
       <if test="opList != null">
         op_list,
       </if>
-      <if test="starttime != null">
-        startTime,
+      <if test="startTime != null">
+        start_time,
       </if>
-      <if test="endtime != null">
-        endTime,
+      <if test="endTime != null">
+        end_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -205,8 +205,8 @@
       <if test="contacts != null">
         #{contacts,jdbcType=VARCHAR},
       </if>
-      <if test="idclist != null">
-        #{idclist,jdbcType=VARCHAR},
+      <if test="idcList != null">
+        #{idcList,jdbcType=VARCHAR},
       </if>
       <if test="bizChan != null">
         #{bizChan,jdbcType=VARCHAR},
@@ -217,11 +217,11 @@
       <if test="opList != null">
         #{opList,jdbcType=VARCHAR},
       </if>
-      <if test="starttime != null">
-        #{starttime,jdbcType=VARCHAR},
+      <if test="startTime != null">
+        #{startTime,jdbcType=VARCHAR},
       </if>
-      <if test="endtime != null">
-        #{endtime,jdbcType=VARCHAR},
+      <if test="endTime != null">
+        #{endTime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -264,8 +264,8 @@
       <if test="record.contacts != null">
         contacts = #{record.contacts,jdbcType=VARCHAR},
       </if>
-      <if test="record.idclist != null">
-        idcList = #{record.idclist,jdbcType=VARCHAR},
+      <if test="record.idcList != null">
+        idc_list = #{record.idcList,jdbcType=VARCHAR},
       </if>
       <if test="record.bizChan != null">
         biz_chan = #{record.bizChan,jdbcType=VARCHAR},
@@ -276,11 +276,11 @@
       <if test="record.opList != null">
         op_list = #{record.opList,jdbcType=VARCHAR},
       </if>
-      <if test="record.starttime != null">
-        startTime = #{record.starttime,jdbcType=VARCHAR},
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=VARCHAR},
       </if>
-      <if test="record.endtime != null">
-        endTime = #{record.endtime,jdbcType=VARCHAR},
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -299,12 +299,12 @@
       content = #{record.content,jdbcType=VARCHAR},
       desc = #{record.desc,jdbcType=VARCHAR},
       contacts = #{record.contacts,jdbcType=VARCHAR},
-      idcList = #{record.idclist,jdbcType=VARCHAR},
+      idc_list = #{record.idcList,jdbcType=VARCHAR},
       biz_chan = #{record.bizChan,jdbcType=VARCHAR},
       biz_type_list = #{record.bizTypeList,jdbcType=VARCHAR},
       op_list = #{record.opList,jdbcType=VARCHAR},
-      startTime = #{record.starttime,jdbcType=VARCHAR},
-      endTime = #{record.endtime,jdbcType=VARCHAR}
+      start_time = #{record.startTime,jdbcType=VARCHAR},
+      end_time = #{record.endTime,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -339,8 +339,8 @@
       <if test="contacts != null">
         contacts = #{contacts,jdbcType=VARCHAR},
       </if>
-      <if test="idclist != null">
-        idcList = #{idclist,jdbcType=VARCHAR},
+      <if test="idcList != null">
+        idc_list = #{idcList,jdbcType=VARCHAR},
       </if>
       <if test="bizChan != null">
         biz_chan = #{bizChan,jdbcType=VARCHAR},
@@ -351,11 +351,11 @@
       <if test="opList != null">
         op_list = #{opList,jdbcType=VARCHAR},
       </if>
-      <if test="starttime != null">
-        startTime = #{starttime,jdbcType=VARCHAR},
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=VARCHAR},
       </if>
-      <if test="endtime != null">
-        endTime = #{endtime,jdbcType=VARCHAR},
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=VARCHAR},
       </if>
     </set>
     where rec_id = #{recId,jdbcType=VARCHAR}
@@ -371,12 +371,12 @@
       content = #{content,jdbcType=VARCHAR},
       desc = #{desc,jdbcType=VARCHAR},
       contacts = #{contacts,jdbcType=VARCHAR},
-      idcList = #{idclist,jdbcType=VARCHAR},
+      idc_list = #{idcList,jdbcType=VARCHAR},
       biz_chan = #{bizChan,jdbcType=VARCHAR},
       biz_type_list = #{bizTypeList,jdbcType=VARCHAR},
       op_list = #{opList,jdbcType=VARCHAR},
-      startTime = #{starttime,jdbcType=VARCHAR},
-      endTime = #{endtime,jdbcType=VARCHAR}
+      start_time = #{startTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR}
     where rec_id = #{recId,jdbcType=VARCHAR}
   </update>
 </mapper>
