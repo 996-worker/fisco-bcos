@@ -15,7 +15,7 @@
 		<plugin type="com.post.generator.plugin.ControllerGenerator">
 			<property name="generator" value="true" />
 			<property name="controllerPackage" value="com.post.controller" />
-			<property name="criteriaEquals" value="series_no,notice_status" />
+			<property name="criteriaEquals" value="info_no" />
 			<property name="criteriaLike" value="" />
 			<property name="orderByKeys" value="create_date" />
 			<property name="approval" value="false" />
@@ -68,7 +68,7 @@
 
 
 
-		<table tableName="nucc_idc_notice" domainObjectName="NuccIdcNotice" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="false" enableSelectByExample="true"
+		<table tableName="nucc_idc_op_notice" domainObjectName="NuccIdcOpNotice" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="false" enableSelectByExample="true"
 			selectByExampleQueryId="false">
 		</table>
 
