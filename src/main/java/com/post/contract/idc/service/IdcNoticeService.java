@@ -189,22 +189,22 @@ public class IdcNoticeService {
                                             EpccTradeOpCntDto cntDto = JsonUtils.toObject(JsonUtils.toJson(cntList.get(i)), EpccTradeOpCntDto.class);
                                             NuccIdcOpNotice opNotice = new NuccIdcOpNotice();
                                             opNotice.setRecId(StringUtils.getPrimaryKey());
-                                            opNotice.setCntNo(cntDto.getCtnNo());
-                                            opNotice.setInfoNo(cntDto.getInfoNo());
-                                            opNotice.setInfoType(cntDto.getInfoType());
-                                            opNotice.setInstId(cntDto.getInstId());
-                                            opNotice.setInstName(cntDto.getInstName());
-                                            opNotice.setContent(cntDto.getContent());
-                                            opNotice.setDesc(cntDto.getDesc());
-                                            opNotice.setContacts(cntDto.getContacts());
-                                            opNotice.setIdclist(cntDto.getIdcList());
-                                            opNotice.setBizChan(cntDto.getCtnNo());
-                                            opNotice.setBizTypeList(StringUtils.join(cntDto.getBizTypeList()));
-                                            opNotice.setAccType(StringUtils.join(cntDto.getAccType()));
-                                            opNotice.setOpList(JsonUtils.toJson(cntDto.getOpList()));
-
-                                            opNotice.setStarttime(cntDto.getStartTime());
-                                            opNotice.setEndtime(cntDto.getEndTime());
+//                                            opNotice.setCntNo(cntDto.getCtnNo());
+//                                            opNotice.setInfoNo(cntDto.getInfoNo());
+//                                            opNotice.setInfoType(cntDto.getInfoType());
+//                                            opNotice.setInstId(cntDto.getInstId());
+//                                            opNotice.setInstName(cntDto.getInstName());
+//                                            opNotice.setContent(cntDto.getContent());
+//                                            opNotice.setDesc(cntDto.getDesc());
+//                                            opNotice.setContacts(cntDto.getContacts());
+//                                            opNotice.setIdcList(cntDto.getIdcList());
+//                                            opNotice.setBizChan(cntDto.getCtnNo());
+//                                            opNotice.setBizTypeList(StringUtils.join(cntDto.getBizTypeList()));
+//                                            opNotice.setAccType(StringUtils.join(cntDto.getAccType()));
+//                                            opNotice.setOpList(JsonUtils.toJson(cntDto.getOpList()));
+//
+//                                            opNotice.setStartTime(cntDto.getStartTime());
+//                                            opNotice.setEndTime(cntDto.getEndTime());
 
                                             nuccIdcOpNoticeMapper.insert(opNotice);
                                         } catch (Exception e) {
