@@ -1,4 +1,4 @@
-package com.post.generator.plugin;
+package com.post.utils.generator;
 
 import java.io.InputStream;
 import java.util.ArrayList;

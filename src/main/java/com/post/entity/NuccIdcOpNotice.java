@@ -33,7 +33,15 @@ public class NuccIdcOpNotice {
 
     private String endTime;
 
-    public NuccIdcOpNotice(String recId, String cntNo, String infoNo, String infoType, String instId, String accType, String instName, String noticeContent, String noticeDesc, String contacts, String idcList, String bizChan, String bizTypeList, String opList, String startTime, String endTime) {
+    private String noticeStatus;
+
+    private String sendStatus;
+
+    private String idcList2;
+
+    private String overOpera;
+
+    public NuccIdcOpNotice(String recId, String cntNo, String infoNo, String infoType, String instId, String accType, String instName, String noticeContent, String noticeDesc, String contacts, String idcList, String bizChan, String bizTypeList, String opList, String startTime, String endTime, String noticeStatus, String sendStatus, String idcList2, String overOpera) {
         this.recId = recId;
         this.cntNo = cntNo;
         this.infoNo = infoNo;
@@ -50,6 +58,10 @@ public class NuccIdcOpNotice {
         this.opList = opList;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.noticeStatus = noticeStatus;
+        this.sendStatus = sendStatus;
+        this.idcList2 = idcList2;
+        this.overOpera = overOpera;
     }
 
     public NuccIdcOpNotice() {
@@ -182,5 +194,37 @@ public class NuccIdcOpNotice {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime == null ? null : endTime.trim();
+    }
+
+    public String getNoticeStatus() {
+        return noticeStatus;
+    }
+
+    public void setNoticeStatus(String noticeStatus) {
+        this.noticeStatus = noticeStatus == null ? null : noticeStatus.trim();
+    }
+
+    public String getSendStatus() {
+        return sendStatus;
+    }
+
+    public void setSendStatus(String sendStatus) {
+        this.sendStatus = sendStatus == null ? null : sendStatus.trim();
+    }
+
+    public String getIdcList2() {
+        return idcList2;
+    }
+
+    public void setIdcList2(String idcList2) {
+        this.idcList2 = idcList2 == null ? null : idcList2.trim();
+    }
+
+    public String getOverOpera() {
+        return overOpera;
+    }
+
+    public void setOverOpera(String overOpera) {
+        this.overOpera = overOpera == null ? null : overOpera.trim();
     }
 }

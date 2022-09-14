@@ -1,12 +1,13 @@
-package com.post.epcc.dto;
+package com.post.epcc.trade;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.post.epcc.dto.EpccTradeDataDto;
 import lombok.Data;
 
 @Data
-
-public class EpccTradeDto<T> {
+/**
+ * 机房变通通知-公共报文
+ */
+public class EpccIDCNotice<T> {
     //报文内容
     private EpccTradeDataDto<T> data;
     //报文方向 01:网联平台到银行 02:网联平台到支付机构 10:银行到网联平台 20:支付机构到网联平台

@@ -87,8 +87,8 @@ public class StringUtils {
         while (param.length() < 5) {
             param = "0" + param;
         }
-//		return (DateUtils.getToday("YYYYMMddHHmmss") + param);
-        return 1 + param;
+		return (DateUtils.getToday("YYYYMMddHHmmss") + param);
+//        return 1 + param;
 
     }
 

@@ -2,11 +2,10 @@ package com.post.epcc.dto.component;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * 建议操作
+ * 机构-建议操作实体
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)

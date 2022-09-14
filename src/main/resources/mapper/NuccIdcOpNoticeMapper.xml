@@ -19,6 +19,10 @@
       <arg column="op_list" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="start_time" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="end_time" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="notice_status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="send_status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="idc_list2" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="over_opera" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -81,7 +85,8 @@
   </sql>
   <sql id="Base_Column_List">
     rec_id, cnt_no, info_no, info_type, inst_id, acc_type, inst_name, notice_content, 
-    notice_desc, contacts, idc_list, biz_chan, biz_type_list, op_list, start_time, end_time
+    notice_desc, contacts, idc_list, biz_chan, biz_type_list, op_list, start_time, end_time, 
+    notice_status, send_status, idc_list2, over_opera
   </sql>
   <select id="selectByExample" parameterType="com.post.entity.NuccIdcOpNoticeExample" resultMap="BaseResultMap">
     select
@@ -114,13 +119,15 @@
       inst_name, notice_content, notice_desc, 
       contacts, idc_list, biz_chan, 
       biz_type_list, op_list, start_time, 
-      end_time)
+      end_time, notice_status, send_status, 
+      idc_list2, over_opera)
     values (#{recId,jdbcType=VARCHAR}, #{cntNo,jdbcType=VARCHAR}, #{infoNo,jdbcType=VARCHAR}, 
       #{infoType,jdbcType=VARCHAR}, #{instId,jdbcType=VARCHAR}, #{accType,jdbcType=VARCHAR}, 
       #{instName,jdbcType=VARCHAR}, #{noticeContent,jdbcType=VARCHAR}, #{noticeDesc,jdbcType=VARCHAR}, 
       #{contacts,jdbcType=VARCHAR}, #{idcList,jdbcType=VARCHAR}, #{bizChan,jdbcType=VARCHAR}, 
       #{bizTypeList,jdbcType=VARCHAR}, #{opList,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, 
-      #{endTime,jdbcType=VARCHAR})
+      #{endTime,jdbcType=VARCHAR}, #{noticeStatus,jdbcType=VARCHAR}, #{sendStatus,jdbcType=VARCHAR}, 
+      #{idcList2,jdbcType=VARCHAR}, #{overOpera,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.post.entity.NuccIdcOpNotice">
     insert into nucc_idc_op_notice
@@ -173,6 +180,18 @@
       <if test="endTime != null">
         end_time,
       </if>
+      <if test="noticeStatus != null">
+        notice_status,
+      </if>
+      <if test="sendStatus != null">
+        send_status,
+      </if>
+      <if test="idcList2 != null">
+        idc_list2,
+      </if>
+      <if test="overOpera != null">
+        over_opera,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="recId != null">
@@ -222,6 +241,18 @@
       </if>
       <if test="endTime != null">
         #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeStatus != null">
+        #{noticeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="sendStatus != null">
+        #{sendStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="idcList2 != null">
+        #{idcList2,jdbcType=VARCHAR},
+      </if>
+      <if test="overOpera != null">
+        #{overOpera,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -282,6 +313,18 @@
       <if test="record.endTime != null">
         end_time = #{record.endTime,jdbcType=VARCHAR},
       </if>
+      <if test="record.noticeStatus != null">
+        notice_status = #{record.noticeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendStatus != null">
+        send_status = #{record.sendStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcList2 != null">
+        idc_list2 = #{record.idcList2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overOpera != null">
+        over_opera = #{record.overOpera,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -304,7 +347,11 @@
       biz_type_list = #{record.bizTypeList,jdbcType=VARCHAR},
       op_list = #{record.opList,jdbcType=VARCHAR},
       start_time = #{record.startTime,jdbcType=VARCHAR},
-      end_time = #{record.endTime,jdbcType=VARCHAR}
+      end_time = #{record.endTime,jdbcType=VARCHAR},
+      notice_status = #{record.noticeStatus,jdbcType=VARCHAR},
+      send_status = #{record.sendStatus,jdbcType=VARCHAR},
+      idc_list2 = #{record.idcList2,jdbcType=VARCHAR},
+      over_opera = #{record.overOpera,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -357,6 +404,18 @@
       <if test="endTime != null">
         end_time = #{endTime,jdbcType=VARCHAR},
       </if>
+      <if test="noticeStatus != null">
+        notice_status = #{noticeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="sendStatus != null">
+        send_status = #{sendStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="idcList2 != null">
+        idc_list2 = #{idcList2,jdbcType=VARCHAR},
+      </if>
+      <if test="overOpera != null">
+        over_opera = #{overOpera,jdbcType=VARCHAR},
+      </if>
     </set>
     where rec_id = #{recId,jdbcType=VARCHAR}
   </update>
@@ -376,7 +435,11 @@
       biz_type_list = #{bizTypeList,jdbcType=VARCHAR},
       op_list = #{opList,jdbcType=VARCHAR},
       start_time = #{startTime,jdbcType=VARCHAR},
-      end_time = #{endTime,jdbcType=VARCHAR}
+      end_time = #{endTime,jdbcType=VARCHAR},
+      notice_status = #{noticeStatus,jdbcType=VARCHAR},
+      send_status = #{sendStatus,jdbcType=VARCHAR},
+      idc_list2 = #{idcList2,jdbcType=VARCHAR},
+      over_opera = #{overOpera,jdbcType=VARCHAR}
     where rec_id = #{recId,jdbcType=VARCHAR}
   </update>
 </mapper>

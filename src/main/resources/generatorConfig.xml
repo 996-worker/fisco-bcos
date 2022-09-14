@@ -6,13 +6,13 @@
 <generatorConfiguration>
 
 	<!--这里需要制定的是本机的数据源驱动地址 -->
-	<classPathEntry location="/Users/leidapeng/application/maven-repository/org/postgresql/postgresql/42.2.5/postgresql-42.2.5.jar" />
+	<classPathEntry location="C:\Users\DaPao\.m2\repository\org\postgresql\postgresql\42.2.8\postgresql-42.2.8.jar" />
 
 	<context id="default" targetRuntime="MyBatis3">
 
 		<plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"></plugin>
 
-		<plugin type="com.post.generator.plugin.ControllerGenerator">
+		<plugin type="com.post.utils.generator.ControllerGenerator">
 			<property name="generator" value="true" />
 			<property name="controllerPackage" value="com.post.controller" />
 			<property name="criteriaEquals" value="info_no" />
@@ -29,7 +29,7 @@
 
 
 		<!--jdbc的数据库连接 -->
-		<jdbcConnection driverClass="org.postgresql.Driver" connectionURL="jdbc:postgresql://127.0.0.1:5432/monitor" userId="postgres" password="123456">
+		<jdbcConnection driverClass="org.postgresql.Driver" connectionURL="jdbc:postgresql://192.168.31.100:5432/monitor" userId="postgres" password="123456">
 		</jdbcConnection>
 
 

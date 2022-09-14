@@ -8,7 +8,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * 生产运维信息报文
+ * 机房变通通知-通知实体
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -38,9 +38,15 @@ public class EpccTradeOpCntDto {
     private String bizChan;
     //影响网联IDC
     private String idcList;
+    //影响变更方IDC
+    private String idcList2;
+    //补充内容
     private String content;
     //影响程度
     private String desc;
+
+    //未按时开始，未按时结束处理方式
+    private String overOpera;
     //联系方式
     private String contacts;
     //状态表示 1-新增,2-取消

@@ -1,6 +1,5 @@
-package com.post.contract.utils;
+package com.post.fisco.contract.utils;
 
-import com.post.utils.CtxUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.fisco.bcos.sdk.BcosSDK;
 import org.fisco.bcos.sdk.client.Client;

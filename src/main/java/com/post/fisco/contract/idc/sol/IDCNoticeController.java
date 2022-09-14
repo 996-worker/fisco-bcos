@@ -1,4 +1,4 @@
-package com.post.contract.idc.sol;
+package com.post.fisco.contract.idc.sol;
 
 import java.math.BigInteger;
 import java.util.ArrayList;

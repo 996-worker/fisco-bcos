@@ -1,13 +1,13 @@
 package com.post.epcc.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-
+/**
+ * 机房变通通知-数据实体
+ */
 public class EpccTradeDataDto<T> {
     //统计数量
     private int cntSumNo;
